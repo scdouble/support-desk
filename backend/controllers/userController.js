@@ -44,6 +44,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     throw new error('Invalid use data')
   }
 })
+
 // @desc Login a new user
 // @route /api/users/login
 // @access public
@@ -61,6 +62,18 @@ const loginUser = expressAsyncHandler(async (req, res) => {
   }
 })
 
+// @desc Get current suer
+// @route /api/users/me
+// @access Private
+const getMe = expressAsyncHandler(async (req, res) => {
+  const user = {
+    id : req.user._id,
+    email: req.user.email,
+    name: req.user.name
+  }
+  res.status(200).json(user)
+})
+
 // Generate token
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -71,4 +84,5 @@ const generateToken = (id) => {
 module.exports = {
   registerUser,
   loginUser,
+  getMe,
 }
