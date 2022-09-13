@@ -50,11 +50,8 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      state.isLoading = false
       state.user = null
-      state.isError = false
-      state.isSuccess = false
-      state.message = ''
+
     },
   },
   extraReducers: (builder) => {
@@ -82,14 +79,10 @@ export const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false
-        state.isSuccess = true
         state.user = action.payload
       })
-      .addCase(login.rejected, (state, action) => {
+      .addCase(login.rejected, (state) => {
         state.isLoading = false
-        state.user = null
-        state.isError = true
-        state.message = action.payload
       })
   },
 })

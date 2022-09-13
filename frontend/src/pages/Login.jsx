@@ -18,18 +18,18 @@ function Login() {
 
   const { user, isLoading, isSuccess, message, isError } = useSelector((state) => state.auth)
 
-  useEffect(() => {
-    if (isError) {
-      toast.error(message)
-    }
-    // Redirect when logged in
+  // useEffect(() => {
+  //   if (isError) {
+  //     toast.error(message)
+  //   }
+  //   // Redirect when logged in
 
-    if (isSuccess || user) {
-      navigate('/')
-    }
+  //   if (isSuccess || user) {
+  //     navigate('/')
+  //   }
 
-    dispatch(reset())
-  }, [isError, isSuccess, user, message, navigate, dispatch])
+  //   dispatch(reset())
+  // }, [isError, isSuccess, user, message, navigate, dispatch])
 
   function onChange(e) {
     setFormData((prevState) => {
@@ -45,7 +45,15 @@ function Login() {
       password,
     }
 
-    dispatch(login(userData))
+    dispatch(login(userData)).unwrap()
+    .then((user) => {
+      // NOTE: by unwrapping the AsyncThunkAction we can navigate the user after
+      // getting a good response from our API or catch the AsyncThunkAction
+      // rejection to show an error message
+      toast.success(`Logged in as ${user.name}`)
+      navigate('/')
+    })
+    .catch(toast.error)
   }
   if (isLoading) {
     return <Spinner />
