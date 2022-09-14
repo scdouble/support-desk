@@ -18,7 +18,7 @@ function NewTicket() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const { isLoading, isError, isSuccess, message } = useSelector((state) => state.ticket)
+  const { isLoading, isError, isSuccess, message } = useSelector((state) => state.tickets)
 
   useEffect(() => {
     if (isError) {

@@ -19,7 +19,7 @@ const getTickets = expressAsyncHandler(async (req, res) => {
   }
 
   const tickets = await Ticket.find({ user: req.user.id })
-  res.status(200).json({ message: 'getTickets' })
+  res.status(200).json(tickets)
 })
 
 // @desc Get tickets
