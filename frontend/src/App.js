@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import NewTicket from './pages/NewTicket'
 import PrivateRoute from './components/PrivateRoute'
 import Tickets from './pages/Tickets'
+import Ticket from './pages/Ticket'
 
 function App() {
   return (
@@ -35,6 +36,14 @@ function App() {
                 <PrivateRoute>
                   {' '}
                   <Tickets></Tickets>{' '}
+                </PrivateRoute>
+              }
+            ></Route>
+            <Route
+              path="/ticket/:ticketId"
+              element={
+                <PrivateRoute>
+                  <Ticket></Ticket>
                 </PrivateRoute>
               }
             ></Route>
